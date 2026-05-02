@@ -21,6 +21,13 @@ def assign_distance_group(km_series, labels=["Near", "Mid", "Far"]):
     service area mixes dense urban and sparse rural blocks.
     """
     q33, q66 = km_series.quantile([0.33, 0.66])
+
+    if q33 >= q66:
+        min_val = km_series.min()
+        max_val = km_series.max()
+        q33 = min_val + (max_val - min_val) / 3
+        q66 = min_val + (max_val - min_val) * 2 / 3
+    
     return pd.cut(km_series,
                   bins=[-np.inf, q33, q66, np.inf],
                   labels=labels)
