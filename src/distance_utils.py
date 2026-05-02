@@ -31,7 +31,7 @@ def attach_patient_coords(patients_df, tiger_df):
     Patients with '*Unspecified' block codes are dropped here
     because we cannot estimate their distance.
     """
-    tiger_clean = tiger_df[["GEOID", "CENTLAT", "CENTLONG"]].copy()
+    tiger_clean = tiger_df[["GEOID", "CENTLAT", "CENTLON"]].copy()
     tiger_clean.columns = ["CensusBlockGroupFipsCode", "pat_lat", "pat_lon"]
 
     merged = patients_df.merge(tiger_clean,
